@@ -1,0 +1,99 @@
+\begin{abstract}
+En este trabajo se presenta la evaluación de la deflexión en el centro de la luz de una viga simplemente apoyada bajo una carga puntual centrada, comparando datos medidos en el laboratorio con los valores teóricos obtenidos mediante la ecuación de Euler-Bernoulli. Se calculó la inercia de la sección rectangular y se realizó la conversión de unidades necesaria para trabajar en el Sistema Internacional. Los resultados obtenidos muestran que los valores medidos se ajustan de manera casi idéntica a la teoría, con un error relativo que no supera el 2.67\% en el rango de cargas de 0 a 40 kN. Se concluye que la viga trabaja dentro del rango elástico lineal, identificando como principal limitación que la teoría clásica no considera las deformaciones por esfuerzo cortante.
+\end{abstract}
+
+\section{Introducción}
+El estudio de las deformaciones en vigas es muy importante en la ingeniería civil para asegurar que las estructuras no sufran flexiones excesivas durante su uso habitual. El objetivo de este informe es desarrollar un cálculo claro y reproducible para determinar la deflexión teórica en el centro de una viga simplemente apoyada usando la fórmula de Euler-Bernoulli \citep{Gere2009}, y comparar estos resultados con un conjunto de datos medidos para comprobar si el comportamiento real se ajusta a la teoría.
+
+\section{Desarrollo del Análisis}
+
+\subsection{Datos del problema y supuestos}
+Se analiza una viga simplemente apoyada con una carga puntual $P$ en el centro de la luz, tal como se muestra en la Fig. \ref{fig:esquema}.
+
+\begin{figure}[hbtp]
+\centering
+\includegraphics[width=0.60\textwidth]{esquema_viga.png}
+\caption{Esquema de la viga simplemente apoyada con carga puntual $P$.}
+\label{fig:esquema}
+\end{figure}
+
+Los datos y dimensiones correspondientes al problema son:
+\begin{itemize}
+    \item Largo de la viga ($L$): \SI{4.0}{\meter}.
+    \item Ancho de la sección ($b$): \SI{0.2}{\meter}.
+    \item Alto de la sección ($h$): \SI{0.4}{\meter}.
+    \item Módulo de elasticidad ($E$): \SI{25}{\giga\pascal} = \SI{25e9}{\pascal}.
+\end{itemize}
+
+Para simplificar el cálculo, se asume que el material se comporta de forma elástica y lineal, que las deformaciones son pequeñas y que no se considera el efecto del esfuerzo cortante en la deflexión.
+
+\subsection{Cálculos y conversión de unidades}
+Primero, se calcula el segundo momento de área (o inercia $I$) para la sección rectangular mediante la fórmula:
+\begin{equation}
+I = \frac{b \cdot h^3}{12} = \frac{\SI{0.2}{\meter} \cdot (\SI{0.4}{\meter})^3}{12} = \SI{0.0010667}{\meter\tothe{4}}
+\end{equation}
+
+Para calcular la deflexión teórica en el centro de la viga se utiliza la ecuación de Euler-Bernoulli:
+\begin{equation}
+\delta_{\text{teo}} = \frac{P \cdot L^3}{48 \cdot E \cdot I}
+\end{equation}
+
+Para evitar errores en el cálculo, es necesario transformar las unidades al Sistema Internacional:
+\begin{itemize}
+    \item La carga $P$ se pasa de \si{\kilo\newton} a \si{\newton} multiplicando por $1000$ ($P [\text{N}] = P [\text{kN}] \cdot 1000$).
+    \item El módulo $E$ de \si{\giga\pascal} a \si{\pascal} multiplicando por $10^9$ ($E = \SI{25e9}{\pascal}$).
+    \item El resultado de la deflexión en metros se multiplica por $1000$ para obtenerlo en milímetros ($\delta [\text{mm}] = \delta [\text{m}] \cdot 1000$).
+\end{itemize}
+
+\subsection{Resultados y comparación}
+Al aplicar las fórmulas para las distintas cargas $P$ (de 0 a \SI{40}{\kilo\newton}), se obtuvieron los valores teóricos y se compararon con las mediciones en la Tabla \ref{table:resultados}. El porcentaje de error relativo se calculó como:
+\begin{equation}
+\text{Error Relativo (\%)} = \frac{|\delta_{\text{med}} - \delta_{\text{teo}}|}{\delta_{\text{teo}}} \times 100
+\end{equation}
+
+\begin{table}[hbt]
+\caption{Comparación entre la deflexión medida y la deflexión teórica.}
+\footnotesize
+\centering
+\begin{tabular}{ccccc}
+\toprule
+\textit{Carga $P$ (\si{\kilo\newton})} & \textit{$\delta_{\text{med}}$ (\si{\milli\meter})} & \textit{$\delta_{\text{teo}}$ (\si{\milli\meter})} & \textit{Diferencia (\si{\milli\meter})} & \textit{Error Relativo (\%)} \\
+\midrule
+0  & 0.00 & 0.00 & 0.00 & 0.00\% \\
+5  & 0.26 & 0.25 & 0.01 & 4.00\% \\
+10 & 0.50 & 0.50 & 0.00 & 0.00\% \\
+15 & 0.76 & 0.75 & 0.01 & 1.33\% \\
+20 & 1.01 & 1.00 & 0.01 & 1.00\% \\
+25 & 1.28 & 1.25 & 0.03 & 2.40\% \\
+30 & 1.54 & 1.50 & 0.04 & 2.67\% \\
+35 & 1.77 & 1.75 & 0.02 & 1.14\% \\
+40 & 2.05 & 2.00 & 0.05 & 2.50\% \\
+\bottomrule
+\end{tabular}
+\label{table:resultados}
+\end{table}
+
+En la Fig. \ref{fig:grafica_deflexion} se graficaron ambos conjuntos de datos. Se puede apreciar que la curva medida se superpone casi perfectamente con la curva teórica.
+
+\begin{figure}[hbtp]
+\centering
+\includegraphics[width=0.70\textwidth]{carga_vs_deflexion.png}
+\caption{Gráfico de Carga vs. Deflexión en el centro de la viga.}
+\label{fig:grafica_deflexion}
+\end{figure}
+
+\subsection{Comprobación adicional}
+Para comprobar que los cálculos estén bien hechos, se calculó la rigidez teórica del sistema $k = P / \delta$:
+\begin{equation}
+k_{\text{teo}} = \frac{48 \cdot E \cdot I}{L^3} = \frac{48 \cdot (\SI{25e9}{\pascal}) \cdot (\SI{0.0010667}{\meter\tothe{4}})}{(\SI{4.0}{\meter})^3} = \SI{20.0}{\kilo\newton\per\milli\meter}
+\end{equation}
+
+Si tomamos la medición para una carga de $P = \SI{20}{\kilo\newton}$, la rigidez medida es $k_{\text{med}} = \frac{\SI{20}{\kilo\newton}}{\SI{1.01}{\milli\meter}} = \SI{19.80}{\kilo\newton\per\milli\meter}$. Como la diferencia entre ambas rigideces es menor al 1\%, se confirma que no hay errores de conversión de unidades en la planilla.
+
+\section{Conclusiones y observaciones}
+Los datos muestran claramente que la viga tiene un comportamiento elástico lineal muy estable. La mayor diferencia entre lo medido y lo teórico fue de solo \SI{0.05}{\milli\meter} para la carga de \SI{40}{\kilo\newton}, lo que demuestra que la fórmula teórica funciona muy bien para este tipo de ensayos.
+
+Una limitación es que la teoría de Euler-Bernoulli \citep{Gere2009, Hibbeler2017} no toma en cuenta la deformación por corte. Para vigas muy gruesas o poco esbeltas (donde la relación $L/h$ sea baja), esta deformación por corte puede ser más importante y habría que usar otras teorías como la de Timoshenko.
+
+\section{Declaración sobre uso de Inteligencia Artificial}
+Se utilizó asistencia de herramientas de Inteligencia Artificial como Google Gemini para la organización de la plantilla en \LaTeX, utilizandola de apoyo en la redacción del presente documento y revisión general de las fórmulas matemáticas. Todos los cálculos, gráficos e interpretación de los datos fueron revisados y verificados manualmente antes de incluirse en este informe.
