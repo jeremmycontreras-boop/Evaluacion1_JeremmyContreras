@@ -1,7 +1,7 @@
 # Declaración de uso de inteligencia artificial
 
-- Herramienta(s):
-- Propósito del uso:
+- Herramienta(s): Gemini (Google)
+- Propósito del uso: Asistencia para la estructuración 
 - Consulta o tarea realizada (resuma o enlace el registro pertinente):
 - Contenido incorporado al trabajo:
 - Procedimiento de verificación:
